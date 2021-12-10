@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed} from 'vue'
-import { CopyOutlined, SmileOutlined, SmileFilled } from '@ant-design/icons-vue'
+import { IconCopy } from '@arco-design/web-vue/es/icon'
 import CopyValue from '@/components/CopyValue/index.vue'
 import dayjs from 'dayjs'
 const nowTimestamp = ref(Math.round(new Date().getTime() / 1000))
@@ -47,32 +47,36 @@ const dateToTimestamp = () => {
   <span>当前</span><span>{{ nowTimestamp }}</span><CopyValue :value="String(nowTimestamp)"></CopyValue>
 </div>
 <div>
-  <a-input v-model:value="nowTime"></a-input>
-  <a-select v-model:value="timeUint" class="select">
-    <a-select-option value="s">秒(s)</a-select-option>
-    <a-select-option value="ms">毫秒(ms)</a-select-option>
+  <a-input v-model="nowTime" class="src-input"></a-input>
+  <a-select :style="{width:'100px', margin: '10px 5px'}" v-model="timeUint">
+    <a-option value="s">秒(s)</a-option>
+    <a-option value="ms">毫秒(ms)</a-option>
   </a-select>
   <a-button @click="timestampToTime">转换</a-button>
-  <a-input v-model:value="toNowTime"></a-input>
+  <a-input v-model="toNowTime" class="input"></a-input>
   <CopyValue :value="String(toNowTime)"></CopyValue>
 </div>
 <div>
-  <a-input :placeholder="tipsNowDate" v-model:value="nowDate"></a-input>
-  <a-select v-model:value="timeUint2" class="select">
-    <a-select-option value="s">秒(s)</a-select-option>
-    <a-select-option value="ms">毫秒(ms)</a-select-option>
+  <a-input class="input" :placeholder="tipsNowDate" v-model="nowDate"></a-input>
+  <a-select v-model="timeUint2" class="time-unit">
+    <a-option value="s">秒(s)</a-option>
+    <a-option value="ms">毫秒(ms)</a-option>
   </a-select>
   <a-button @click="dateToTimestamp">转换</a-button>
-  <a-input v-model:value="toNowDate"></a-input>
+  <a-input class="input" v-model="toNowDate"></a-input>
   <CopyValue :value="String(toNowDate)"></CopyValue>
 </div>
 </template>
 
 <style scoped>
-.ant-input {
+.input {
+  width: 200px;
+
+}
+.src-input {
   width: 200px;
 }
-.select {
-  width: 100px;
+.time-unit {
+  margin: 10px 10px;
 }
 </style>

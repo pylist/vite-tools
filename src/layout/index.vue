@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { defineComponent, ref } from 'vue'
 import {
-  HomeOutlined,
-  ToolOutlined,
-  AppstoreOutlined,
-  SettingOutlined,
-} from '@ant-design/icons-vue'
+  IconHome,
+  IconTool,
+} from '@arco-design/web-vue/es/icon'
 const current = ref<string[]>(['mail'])
 </script>
 <template>
@@ -14,15 +12,14 @@ const current = ref<string[]>(['mail'])
       <a-menu v-model:selectedKeys="current" mode="horizontal" theme="dark">
         <a-menu-item key="home" @click="$router.push({ path: '/' })">
           <template #icon>
-            <HomeOutlined />
+            <IconHome />
           </template>
           首页
         </a-menu-item>
-        <a-sub-menu>
-          <template #icon>
-            <ToolOutlined />
+        <a-sub-menu key="0">
+          <template #title>
+            <IconTool />工具
           </template>
-          <template #title>工具</template>
           <a-menu-item key="setting:1" @click="$router.push({ path: '/timestamp' })">时间戳转换</a-menu-item>
           <a-menu-item key="setting:2">QQ号查询</a-menu-item>
         </a-sub-menu>
@@ -43,11 +40,11 @@ const current = ref<string[]>(['mail'])
 </template>
 
 <style scoped>
-.ant-layout-content {
+.arco-layout-content {
   padding: 0 50px;
 }
 
-.ant-layout {
+.arco-layout {
   height: calc(100vh);
 }
 </style>
