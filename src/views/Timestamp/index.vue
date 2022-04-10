@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed} from 'vue'
-import { CopyOutlined, SmileOutlined, SmileFilled } from '@ant-design/icons-vue'
 import CopyValue from '@/components/CopyValue/index.vue'
 import dayjs from 'dayjs'
 const nowTimestamp = ref(Math.round(new Date().getTime() / 1000))
@@ -24,9 +23,12 @@ const toNowDate = ref()
 
 const timestampToTime = () => {
   let uint = parseInt(nowTime.value)
+  if (!uint) {
+    uint = new Date().getTime() / 1000
+  }
   if (timeUint.value == 's') {
     uint *= 1000
-  }
+  } 
   toNowTime.value = dayjs(uint).format('YYYY-MM-DD HH:mm:ss')
 }
 const dateToTimestamp = () => {
@@ -38,41 +40,38 @@ const dateToTimestamp = () => {
   if (timeUint2.value == 'ms') {
     nowUnix *= 1000
   }
-  toNowDate.value = nowUnix
+  toNowDate.value = String(nowUnix)
 }
 </script>
 
 <template>  
 <div>
-  <span>当前</span><span>{{ nowTimestamp }}</span><CopyValue :value="String(nowTimestamp)"></CopyValue>
+  <div>
+    <span>当前:</span>
+    <a-typography-paragraph copyable>
+      {{ nowTimestamp }}
+    </a-typography-paragraph>
+  </div>
 </div>
 <div>
-  <a-input v-model:value="nowTime"></a-input>
-  <a-select v-model:value="timeUint" class="select">
-    <a-select-option value="s">秒(s)</a-select-option>
-    <a-select-option value="ms">毫秒(ms)</a-select-option>
+  <a-input v-model="nowTime" style="width: 200px;"></a-input>
+  <a-select v-model="timeUint" style="width: 120px;margin-left: 5px;">
+    <a-option value="s">秒(s)</a-option>
+    <a-option value="ms">毫秒(ms)</a-option>
   </a-select>
-  <a-button @click="timestampToTime">转换</a-button>
-  <a-input v-model:value="toNowTime"></a-input>
-  <CopyValue :value="String(toNowTime)"></CopyValue>
+  <a-button type="primary" @click="timestampToTime" style="margin-left: 5px;">转换</a-button>
+  <a-input v-model="toNowTime" style="width: 200px;margin-left: 5px;"></a-input>
 </div>
-<div>
-  <a-input :placeholder="tipsNowDate" v-model:value="nowDate"></a-input>
-  <a-select v-model:value="timeUint2" class="select">
-    <a-select-option value="s">秒(s)</a-select-option>
-    <a-select-option value="ms">毫秒(ms)</a-select-option>
+<div style="margin-top: 10px;">
+  <a-input :placeholder="tipsNowDate" v-model:value="nowDate" style="width: 200px;"></a-input>
+  <a-select v-model="timeUint2" style="width: 120px;margin-left: 5px;">
+    <a-option value="s">秒(s)</a-option>
+    <a-option value="ms">毫秒(ms)</a-option>
   </a-select>
-  <a-button @click="dateToTimestamp">转换</a-button>
-  <a-input v-model:value="toNowDate"></a-input>
-  <CopyValue :value="String(toNowDate)"></CopyValue>
+  <a-button type="primary" @click="dateToTimestamp" style="margin-left: 5px;">转换</a-button>
+  <a-input v-model="toNowDate" style="width: 200px;margin-left: 5px;"></a-input>
 </div>
 </template>
 
 <style scoped>
-.ant-input {
-  width: 200px;
-}
-.select {
-  width: 100px;
-}
 </style>

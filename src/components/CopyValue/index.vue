@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, defineProps } from 'vue'
-import { CopyOutlined, CheckOutlined } from '@ant-design/icons-vue'
 const props = defineProps({
   value: String
 })
@@ -33,8 +32,8 @@ const mouseleave = (visible: Boolean) => {
     <span>{{ tips }}</span>
   </template>
   <span style="margin-left: 5px;">
-    <CopyOutlined v-if="clickBool" @click="copy" style="color: #1890ff;" />
-    <CheckOutlined v-else :style="{ color: '#52c41a' }" />
+    <!-- <CopyOutlined v-if="clickBool" @click="copy" style="color: #1890ff;" />
+    <CheckOutlined v-else :style="{ color: '#52c41a' }" /> -->
   </span>
 </a-tooltip>
 
